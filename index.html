@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="http://api.odnoklassniki.ru/js/fapi.js"></script>
+	</head>
+	<body>
+		<h1>IE11-Bug Application</h1>
+		<textarea style="width: 100%; height: 500px" id="output"></textarea>
+		<script>
+			
+			var params = {};
+			
+			
+			var paramsArr = location.search.substr(1).split('&');
+			for ( var i = 0; i < paramsArr.length; i++ ) {
+				var param = paramsArr[i].split('=');
+				params[ decodeURIComponent( param[ 0 ] ) ] = decodeURIComponent( param[ 1 ] );
+			}
+			
+			var output = document.getElementById( 'output' );
+			
+			function log( str ) {
+				output.value += str + '\n';
+				if ( window.console ) {
+					window.console.log( str );
+				}
+			}
+			
+			log( 'GET PARAMETERS:' );
+			for ( var key in params ) {
+				log( '\t' + key + '=' + params[ key ] );
+			}
+			
+			function onFAPIInitSuccess() {
+				log( "FAPI.init() success" );
+			}
+			
+			function onFAPIInitError( err ) {
+				log( "FAPI.init() error : " + err );
+			}
+			
+			FAPI.init( params.api_server, params.apiconnection, onFAPIInitSucccess, onFAPIInitError );
+		
+		</script>
+	</body>
+</html>
