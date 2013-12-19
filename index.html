@@ -6,6 +6,7 @@
 	<body>
 		<h1>IE11-Bug Application</h1>
 		<textarea style="width: 100%; height: 500px" id="output"></textarea>
+		<input type="button" value="showNotification" onclick="showNotification()" />
 		<script>
 			
 			var params = {};
@@ -37,6 +38,11 @@
 			
 			function onFAPIInitError( err ) {
 				log( "FAPI.init() error : " + err );
+			}
+			
+			function showNotification() {
+				log( "showNotification() -> FAPI.UI.showNotification()" );
+				FAPI.UI.showNotification( 'Notification test', 'test_var=test_value' );
 			}
 			
 			FAPI.init( params.api_server, params.apiconnection, onFAPIInitSuccess, onFAPIInitError );
